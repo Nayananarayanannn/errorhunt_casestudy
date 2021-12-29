@@ -75,7 +75,7 @@ booksRouter.post('/delete', function (req, res) {
     const id = req.body.id;  
 
     bookdata.findOneAndDelete({ _id: id },
-        {useFindAndModify:false})//part#2point1
+        {useFindAndModify:false})//part#2point9
         .then(function () {
 
             res.redirect('/books')
@@ -105,20 +105,25 @@ booksRouter.post('/edit', function (req, res) {
 
 //router to update book
 booksRouter.post('/update', function (req, res) {
+    bookdata.findOne({ _id: req.body.id }) //Part #2 Point 9
+        .then(function (book) {
+            if (req.body.image != ""){
+                book.image = req.body.image;
+            }
 
-    bookdata.findByIdAndUpdate(req.body.id, { $set: req.body }, function (err, data) {
-        if (err) {
-            res.json({ status: "Failed" });
-        }
-        else if (data.n == 0) {
-            res.json({ status: "No match Found" });
-        }
-        else {
-            res.redirect("/books");
-        }
-
-    }) 
-});
+            book.title = req.body.title;
+            book.author = req.body.author;
+            book.about = req.body.about;
+            book.save( function (err) {
+                if (err) {
+                    res.json({ status: "Failed" });
+                }
+                else {
+                    res.redirect("/books")
+                }
+            })
+        })
+})
 
 return booksRouter;
 }
