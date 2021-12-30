@@ -24,8 +24,8 @@ const nav= [
 const loginRouter = require('./src/routes/loginroute');
 const signupRouter = require('./src/routes/signuproute');
 const homeRouter = require('./src/routes/homerouter')(nav); //part#1 point  //changed homeroute to homerouter as file name is homerouter 
-const booksRouter = require('./src/routes/booksroute')(nav);//part#2 point1
-const authorsRouter = require('./src/routes/authorsroute')(nav);//part#2 point1
+const booksRouter = require('./src/routes/booksroute')(nav);//part#2 point6
+const authorsRouter = require('./src/routes/authorsroute')(nav);//part#2 point6
 
 const app = express();       //part#1point1::changed new express to express()
 

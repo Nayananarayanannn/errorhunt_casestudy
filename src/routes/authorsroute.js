@@ -15,7 +15,7 @@ var storage= multer.diskStorage({
 
 var upload = multer({storage:storage});
 
-function router(nav){//part#2 point1
+function router(nav){//part#2 point6
     //router to render authors page
 authorsRouter.get('/',function(req,res){
 
