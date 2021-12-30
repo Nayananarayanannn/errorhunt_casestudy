@@ -2,7 +2,18 @@ const express = require('express');
 const authorsRouter = express.Router();
 // const authors = require('../data/authors');
 const authordata = require('../model/AuthorModel');
+const multer = require("multer");
 
+var storage= multer.diskStorage({
+    destination:(req,file,callback)=>{
+        callback(null,"./public/images")
+    },
+    filename:(req,file,callback)=>{
+        callback(null,file.originalname)
+    }
+})
+
+var upload = multer({storage:storage});
 
 function router(nav){//part#2 point1
     //router to render authors page
@@ -33,11 +44,12 @@ authorsRouter.get('/addauthor',function(req,res){
 
 
 //router to add author
-authorsRouter.post('/add', function (req, res) {
+authorsRouter.post('/add',upload.single("image"), function (req, res) {
 
     var item={
         title:req.body.title,
-        image:req.body.image,  //part#2 point8 changed images to image
+        image:req.file.filename,
+        // image:req.body.image,  //part#2 point8 changed images to image(used multer instead)
         about:req.body.about
     }
     console.log(item)  ;

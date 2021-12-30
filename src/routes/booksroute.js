@@ -2,8 +2,18 @@ const express = require('express');
 const booksRouter = express.Router();
 // const books = require('../data/books');
 const bookdata = require('../model/BookModel');
+const multer = require("multer")
 
+var storage = multer.diskStorage({
+    destination:(req,file,callback)=>{
+        callback(null,"./public/images")
+    },
+    filename:(req,file,callback)=>{
+        callback(null,file.originalname)
+    }
 
+});
+var upload = multer({storage:storage})
 
 
 function router(nav){//part#2 point1
@@ -35,12 +45,12 @@ booksRouter.get('/addbook',function(req,res){
 
 
 //router to add book
-booksRouter.post('/add', function (req, res) {
+booksRouter.post('/add',upload.single("image"), function (req, res) {
 
         var item={
             title:req.body.title,
             author:req.body.author,
-            image:req.body.image,
+            image:req.file.filename,
             about:req.body.about
         }
         console.log(item)  ;

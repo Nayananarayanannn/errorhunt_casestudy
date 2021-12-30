@@ -11,8 +11,8 @@ signupRouter.get('/',function(req,res){
 signupRouter.get("/adduser",function(req,res){
     
     var newuser = {
-        "uid":req.params.uid,
-        "pwd":req.params.pwd//part#1 point10::changed deprecated method param to params
+        "uid":req.query.uid,
+        "pwd":req.query.pwd//part#1 point10::changed deprecated method param to query
     };
     console.log(newuser);
     user.push(newuser);

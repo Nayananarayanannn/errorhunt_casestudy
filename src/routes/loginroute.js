@@ -11,8 +11,8 @@ loginRouter.get('/',function(req,res){
 
 loginRouter.get("/check",function(req,res){
     var checkuser = {
-        uid:req.params.uid,
-        pwd:req.params.pwd//part#2point10::changed deprecated method param to params
+        uid:req.query.uid,
+        pwd:req.query.pwd//part#2point10::changed deprecated method param to query
     };
     
     console.log(checkuser);
